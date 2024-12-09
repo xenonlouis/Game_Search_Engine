@@ -58,3 +58,6 @@ ENV/
 .vscode/
 *.swp
 *.swo
+
+#json
+*.json

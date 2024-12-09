@@ -69,6 +69,46 @@ class GameResponse(BaseModel):
     matched_terms: List[str]
 
 
+class GameCreate(BaseModel):
+    name: str
+    description: str
+    releaseDate: str
+    genre: str
+    platform: str
+    rating: float
+    metacritic: Optional[int]
+    backgroundImage: Optional[str]
+
+
+def process_game(game_data: dict) -> dict:
+    """Process game data before inserting into database"""
+    return {
+        'game_id': hash(game_data['name'] + game_data['releaseDate']),  # Generate unique ID
+        'name': game_data['name'],
+        'description': game_data['description'],
+        'released': datetime.strptime(game_data['releaseDate'], '%Y-%m-%d'),
+        'background_image': game_data.get('backgroundImage'),
+        'rating': float(game_data['rating']),
+        'metacritic': game_data.get('metacritic'),
+        'platforms': [{
+            'platform': {
+                'name': game_data['platform'],
+                'slug': game_data['platform'].lower().replace(' ', '-'),
+            }
+        }],
+        'genres': [game_data['genre']],
+        'tags': [],
+        'added': 0,
+        'added_by_status': {},
+        'playtime': 0,
+        'suggestions_count': 0,
+        'updated': datetime.now(),
+        'reviews_count': 0,
+        'saturated_color': '0f0f0f',
+        'dominant_color': '0f0f0f'
+    }
+
+
 class SearchEngine:
     def __init__(self):
         self.stemmer = PorterStemmer()
@@ -255,5 +295,21 @@ async def get_game(game_id: int):
                 }
             )
         raise HTTPException(status_code=404, detail="Game not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/games/")
+async def add_game(game: GameCreate):
+    try:
+        # Process the game data
+        game_doc = process_game(game.dict())
+        # Insert into database
+        result = db.games.insert_one(game_doc)
+        # Return success response
+        return JSONResponse(
+            status_code=201,
+            content={"message": "Game added successfully", "id": str(result.inserted_id)}
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

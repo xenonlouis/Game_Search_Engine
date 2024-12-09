@@ -3,7 +3,17 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Container, TextField, Card, CardContent, CardMedia, Typography,
   Grid, Box, Chip, Rating, InputAdornment,
-  Paper, CircularProgress, Slider, AppBar, Toolbar
+  Paper, CircularProgress, Slider, AppBar, Toolbar,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Fab,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { motion } from 'framer-motion';
@@ -11,6 +21,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import StarIcon from '@mui/icons-material/Star';
 import axios from 'axios';
+import AddIcon from '@mui/icons-material/Add';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   height: '100%',
@@ -70,6 +81,50 @@ const SearchBar = styled(TextField)(({ theme }) => ({
   },
 }));
 
+const AddGameModal = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialog-paper': {
+    backgroundColor: 'rgba(30, 30, 40, 0.95)',
+    backdropFilter: 'blur(10px)',
+    border: '1px solid rgba(81, 51, 171, 0.2)',
+    borderRadius: '12px',
+    color: 'white',
+  },
+}));
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  '& .MuiInputBase-root': {
+    backgroundColor: 'rgba(81, 51, 171, 0.1)',
+    borderRadius: '8px',
+    color: 'white',
+    '&:hover': {
+      backgroundColor: 'rgba(81, 51, 171, 0.15)',
+    },
+  },
+  '& .MuiInputLabel-root': {
+    color: 'rgba(255, 255, 255, 0.7)',
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    borderColor: 'rgba(81, 51, 171, 0.2)',
+  },
+  '& .MuiInputBase-root:hover .MuiOutlinedInput-notchedOutline': {
+    borderColor: 'rgba(81, 51, 171, 0.3)',
+  },
+  '& .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+    borderColor: '#8257e6',
+  },
+}));
+
+const AddGameButton = styled(Fab)(({ theme }) => ({
+  position: 'fixed',
+  bottom: 24,
+  right: 24,
+  backgroundColor: '#8257e6',
+  color: 'white',
+  '&:hover': {
+    backgroundColor: '#6f48c9',
+  },
+}));
+
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('q') || '');
@@ -87,6 +142,17 @@ const SearchPage = () => {
   const [hasMore, setHasMore] = useState(true);
   const navigate = useNavigate();
   const loadingRef = React.useRef(null);
+  const [openAddGame, setOpenAddGame] = useState(false);
+  const [newGame, setNewGame] = useState({
+    name: '',
+    description: '',
+    releaseDate: '',
+    genre: '',
+    platform: '',
+    rating: '',
+    metacritic: '',
+    backgroundImage: '',
+  });
 
   const platforms = [
     'All Platforms',
@@ -175,6 +241,21 @@ const SearchPage = () => {
     setGames([]);
     setSearchParams({});
     localStorage.removeItem('lastSearchResults');
+  };
+
+  const handleAddGame = async () => {
+    try {
+      const response = await axios.post('http://localhost:8000/games', newGame);
+      if (response.status === 201) {
+        setOpenAddGame(false);
+        // Optionally refresh the search results
+        if (query.trim()) {
+          searchGames();
+        }
+      }
+    } catch (error) {
+      console.error('Error adding game:', error);
+    }
   };
 
   return (
@@ -485,6 +566,128 @@ const SearchPage = () => {
             </Typography>
           )}
         </Box>
+
+        {/* Add Game Button */}
+        <AddGameButton onClick={() => setOpenAddGame(true)}>
+          <AddIcon />
+        </AddGameButton>
+
+        {/* Add Game Modal */}
+        <AddGameModal
+          open={openAddGame}
+          onClose={() => setOpenAddGame(false)}
+          maxWidth="sm"
+          fullWidth
+        >
+          <DialogTitle sx={{ color: 'white', borderBottom: '1px solid rgba(81, 51, 171, 0.2)' }}>
+            Add New Game
+          </DialogTitle>
+          <DialogContent sx={{ mt: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, my: 1 }}>
+              <StyledTextField
+                label="Game Name"
+                fullWidth
+                value={newGame.name}
+                onChange={(e) => setNewGame({ ...newGame, name: e.target.value })}
+              />
+              <StyledTextField
+                label="Description"
+                fullWidth
+                multiline
+                rows={4}
+                value={newGame.description}
+                onChange={(e) => setNewGame({ ...newGame, description: e.target.value })}
+              />
+              <StyledTextField
+                label="Release Date"
+                type="date"
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+                value={newGame.releaseDate}
+                onChange={(e) => setNewGame({ ...newGame, releaseDate: e.target.value })}
+              />
+              <FormControl fullWidth>
+                <InputLabel sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>Genre</InputLabel>
+                <Select
+                  value={newGame.genre}
+                  onChange={(e) => setNewGame({ ...newGame, genre: e.target.value })}
+                  sx={{
+                    backgroundColor: 'rgba(81, 51, 171, 0.1)',
+                    color: 'white',
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'rgba(81, 51, 171, 0.2)',
+                    },
+                  }}
+                >
+                  {genres.map((genre) => (
+                    <MenuItem key={genre} value={genre}>{genre}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl fullWidth>
+                <InputLabel sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>Platform</InputLabel>
+                <Select
+                  value={newGame.platform}
+                  onChange={(e) => setNewGame({ ...newGame, platform: e.target.value })}
+                  sx={{
+                    backgroundColor: 'rgba(81, 51, 171, 0.1)',
+                    color: 'white',
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'rgba(81, 51, 171, 0.2)',
+                    },
+                  }}
+                >
+                  {platforms.map((platform) => (
+                    <MenuItem key={platform} value={platform}>{platform}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <StyledTextField
+                label="Rating"
+                type="number"
+                fullWidth
+                inputProps={{ min: 0, max: 5, step: 0.1 }}
+                value={newGame.rating}
+                onChange={(e) => setNewGame({ ...newGame, rating: e.target.value })}
+              />
+              <StyledTextField
+                label="Metacritic Score"
+                type="number"
+                fullWidth
+                inputProps={{ min: 0, max: 100 }}
+                value={newGame.metacritic}
+                onChange={(e) => setNewGame({ ...newGame, metacritic: e.target.value })}
+              />
+              <StyledTextField
+                label="Background Image URL"
+                fullWidth
+                value={newGame.backgroundImage}
+                onChange={(e) => setNewGame({ ...newGame, backgroundImage: e.target.value })}
+              />
+            </Box>
+          </DialogContent>
+          <DialogActions sx={{ p: 3, borderTop: '1px solid rgba(81, 51, 171, 0.2)' }}>
+            <Button
+              onClick={() => setOpenAddGame(false)}
+              sx={{
+                color: 'rgba(255, 255, 255, 0.7)',
+                '&:hover': { color: 'white' },
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleAddGame}
+              variant="contained"
+              sx={{
+                backgroundColor: '#8257e6',
+                '&:hover': { backgroundColor: '#6f48c9' },
+              }}
+            >
+              Add Game
+            </Button>
+          </DialogActions>
+        </AddGameModal>
       </Container>
     </Box>
   );
