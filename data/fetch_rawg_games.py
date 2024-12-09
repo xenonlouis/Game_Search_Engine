@@ -10,7 +10,7 @@ GAMES = [
     # Action RPG 2023
     "Sea of Stars",
     "Lies of P",
-    "Diablo IV",
+    "",
     "Final Fantasy 16",
     "Octopath Traveler II",
     
@@ -53,6 +53,10 @@ def safe_get(obj, *keys):
 async def fetch_game(session: aiohttp.ClientSession, game_name: str):
     """Fetch a single game's data from RAWG"""
     try:
+        # Skip empty game names
+        if not game_name:
+            return None
+            
         # Search for the game
         search_url = "https://api.rawg.io/api/games"
         search_params = {
@@ -77,6 +81,32 @@ async def fetch_game(session: aiohttp.ClientSession, game_name: str):
             async with session.get(details_url, params=params) as response:
                 game_data = await response.json()
                 
+                # Get screenshots
+                screenshots_url = f"https://api.rawg.io/api/games/{game_id}/screenshots"
+                screenshots_params = {'key': str(API_KEY)}
+                
+                async with session.get(screenshots_url, params=screenshots_params) as screenshots_response:
+                    screenshots_data = await screenshots_response.json()
+                    
+                    # Prepare screenshots array
+                    screenshots = []
+                    
+                    # Add background image as first screenshot if available
+                    if game_data.get('background_image'):
+                        screenshots.append({
+                            'id': -1,
+                            'image': game_data['background_image']
+                        })
+                    
+                    # Add additional screenshots
+                    if screenshots_data.get('results'):
+                        for screenshot in screenshots_data['results']:
+                            if screenshot.get('image'):
+                                screenshots.append({
+                                    'id': screenshot.get('id', len(screenshots)),
+                                    'image': screenshot['image']
+                                })
+                
                 # Process platforms data
                 platforms = []
                 for platform_data in game_data.get('platforms', []):
@@ -93,7 +123,7 @@ async def fetch_game(session: aiohttp.ClientSession, game_name: str):
                         })
                 
                 # Create game document with exact structure
-                return {
+                game_doc = {
                     'id': game_data.get('id'),
                     'slug': game_data.get('slug', ''),
                     'name': game_data.get('name', 'Unknown Game'),
@@ -120,8 +150,11 @@ async def fetch_game(session: aiohttp.ClientSession, game_name: str):
                     'stores': game_data.get('stores', []),
                     'tags': game_data.get('tags', []),
                     'esrb_rating': game_data.get('esrb_rating'),
-                    'short_screenshots': game_data.get('short_screenshots', [])
+                    'short_screenshots': screenshots  # Use our processed screenshots
                 }
+                
+                print(f"Successfully fetched {game_name} with {len(screenshots)} screenshots")
+                return game_doc
                 
     except Exception as e:
         print(f"Error fetching {game_name}: {str(e)}")

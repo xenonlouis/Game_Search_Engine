@@ -246,7 +246,36 @@
       "name": "Teen",
       "slug": "teen"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/1de/1de8ff69ed31d7a47d4f7770f23f20b8.jpg"
+      },
+      {
+        "id": 2333717,
+        "image": "https://media.rawg.io/media/screenshots/db6/db625f085ce03f211ea27cf7b7b24b5b.jpg"
+      },
+      {
+        "id": 2333718,
+        "image": "https://media.rawg.io/media/screenshots/05f/05f533b6bdeaaf9479b0a21971811450.jpg"
+      },
+      {
+        "id": 2333719,
+        "image": "https://media.rawg.io/media/screenshots/76f/76f6f56823ddf31b51e657c543926ccb.jpg"
+      },
+      {
+        "id": 2333720,
+        "image": "https://media.rawg.io/media/screenshots/c7b/c7bce81364c819f60151bf7876a871d8.jpg"
+      },
+      {
+        "id": 2333721,
+        "image": "https://media.rawg.io/media/screenshots/b10/b108330146c4324be6fbdf4a26a9bfc9.jpg"
+      },
+      {
+        "id": 2333722,
+        "image": "https://media.rawg.io/media/screenshots/d33/d332c693ac6cf8cbdf4e12122b3aa8bb.jpg"
+      }
+    ]
   },
   {
     "id": 605674,
@@ -578,7 +607,32 @@
       "name": "Mature",
       "slug": "mature"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/458/45838becd01e929b6be8b88d655cebfc.jpg"
+      },
+      {
+        "id": 2850460,
+        "image": "https://media.rawg.io/media/screenshots/333/3332c7015ad0c3042f10a128ab3b4f0a.jpg"
+      },
+      {
+        "id": 2850461,
+        "image": "https://media.rawg.io/media/screenshots/e54/e5441972762d7c97428c8ec8e1c57ab9.jpg"
+      },
+      {
+        "id": 2850462,
+        "image": "https://media.rawg.io/media/screenshots/caf/caf8b31c71fd30eeb53504b550fd6dbf.jpg"
+      },
+      {
+        "id": 2850463,
+        "image": "https://media.rawg.io/media/screenshots/6bf/6bf590df242e884b7d519f9fbe81e8b3.jpg"
+      },
+      {
+        "id": 2850464,
+        "image": "https://media.rawg.io/media/screenshots/f57/f5788075e970b835ff1b20f73ebf2ca4.jpg"
+      }
+    ]
   },
   {
     "id": 850683,
@@ -741,7 +795,32 @@
     ],
     "tags": [],
     "esrb_rating": null,
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/2d1/2d1439e74ece0eae3f571211410646dc.jpg"
+      },
+      {
+        "id": 3563816,
+        "image": "https://media.rawg.io/media/screenshots/b12/b12e399abe01d45b7aa302ae38a33d86.jpg"
+      },
+      {
+        "id": 3563817,
+        "image": "https://media.rawg.io/media/screenshots/1d2/1d23cb922ae5546220d64cc8eb9cf568.jpg"
+      },
+      {
+        "id": 3563818,
+        "image": "https://media.rawg.io/media/screenshots/130/1304891450deefb75216327b5707a9cf.jpg"
+      },
+      {
+        "id": 3563819,
+        "image": "https://media.rawg.io/media/screenshots/370/370611fa64ac90fd0b5b9ba7ab1f18b9.jpg"
+      },
+      {
+        "id": 3803985,
+        "image": "https://media.rawg.io/media/screenshots/c00/c00f85604456b28327d0aaa798fee4e9.jpeg"
+      }
+    ]
   },
   {
     "id": 327239,
@@ -910,7 +989,36 @@
       "name": "Everyone 10+",
       "slug": "everyone-10-plus"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/556/55684bfd048706f4266d331d70050b37.jpg"
+      },
+      {
+        "id": 1961492,
+        "image": "https://media.rawg.io/media/screenshots/51f/51f7928a2630fc4bbb3dac59b8f31448.jpg"
+      },
+      {
+        "id": 1961493,
+        "image": "https://media.rawg.io/media/screenshots/104/10431d15726ed2593401cc70e2115a82.jpg"
+      },
+      {
+        "id": 1961494,
+        "image": "https://media.rawg.io/media/screenshots/c0d/c0dafd15ec182acab8f5879665eaa642.jpg"
+      },
+      {
+        "id": 1961495,
+        "image": "https://media.rawg.io/media/screenshots/725/725dbbf72f15a32f418a42d2e8ac8b25.jpg"
+      },
+      {
+        "id": 1961496,
+        "image": "https://media.rawg.io/media/screenshots/c63/c63fda6df2574a7d071f96082438e820.jpg"
+      },
+      {
+        "id": 2897101,
+        "image": "https://media.rawg.io/media/screenshots/c92/c92c2acf519b3dc613c0f0085cc34b34.jpg"
+      }
+    ]
   },
   {
     "id": 962495,
@@ -1002,7 +1110,36 @@
       "name": "Everyone",
       "slug": "everyone"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/1fd/1fd3f030bee73452d46a0678084a7ed9.jpg"
+      },
+      {
+        "id": 3935426,
+        "image": "https://media.rawg.io/media/screenshots/319/31931839e14e813b3fb46c92aebd4ee5.jpg"
+      },
+      {
+        "id": 3935427,
+        "image": "https://media.rawg.io/media/screenshots/611/6117e095de93147d33a32584d1eecf64.jpg"
+      },
+      {
+        "id": 3941096,
+        "image": "https://media.rawg.io/media/screenshots/f28/f28d087ea237d04b0f511232746b33fd.jpeg"
+      },
+      {
+        "id": 3941097,
+        "image": "https://media.rawg.io/media/screenshots/d0e/d0e7f268e80e05242ec48e276110e1aa.jpeg"
+      },
+      {
+        "id": 3941098,
+        "image": "https://media.rawg.io/media/screenshots/e83/e83bce3afbefd7058957d980b84bd1c0.jpeg"
+      },
+      {
+        "id": 3941099,
+        "image": "https://media.rawg.io/media/screenshots/4ba/4ba1eff24d2ca57b08f6e510c8286918.jpeg"
+      }
+    ]
   },
   {
     "id": 335292,
@@ -1107,7 +1244,28 @@
       "name": "Everyone 10+",
       "slug": "everyone-10-plus"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/274/2740b879e28df2ac3cdbc929a553863d.jpg"
+      },
+      {
+        "id": 3563834,
+        "image": "https://media.rawg.io/media/screenshots/72d/72dc596a3541cbd63e9a09cb26e59462.jpg"
+      },
+      {
+        "id": 3854577,
+        "image": "https://media.rawg.io/media/screenshots/b89/b8968016a2d15b5bbb288862ae283352.jpg"
+      },
+      {
+        "id": 3854578,
+        "image": "https://media.rawg.io/media/screenshots/351/351111c988552c63fe13cb65407ecf59.jpg"
+      },
+      {
+        "id": 3854579,
+        "image": "https://media.rawg.io/media/screenshots/9f9/9f9d9f39b29543e55c95c9dd9dd73f19.jpg"
+      }
+    ]
   },
   {
     "id": 850682,
@@ -1212,7 +1370,28 @@
       "name": "Teen",
       "slug": "teen"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/4c4/4c41c96a4ecbbff9ed23f62590e9b720.jpg"
+      },
+      {
+        "id": 3563804,
+        "image": "https://media.rawg.io/media/screenshots/4af/4afda9166d610e98b75306222fd87ea4.jpg"
+      },
+      {
+        "id": 3563805,
+        "image": "https://media.rawg.io/media/screenshots/2a6/2a6e176e7686e9bdfe2054b39d90c8be.jpg"
+      },
+      {
+        "id": 3563806,
+        "image": "https://media.rawg.io/media/screenshots/862/862c3f978548daf520dea664833d755a.jpg"
+      },
+      {
+        "id": 3563807,
+        "image": "https://media.rawg.io/media/screenshots/621/62125efc90ad51d1ed2779389aa964d8.jpg"
+      }
+    ]
   },
   {
     "id": 50737,
@@ -1330,7 +1509,36 @@
       }
     ],
     "esrb_rating": null,
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/c30/c30ac50cb13096f5402250bf666a321c.jpg"
+      },
+      {
+        "id": 3036685,
+        "image": "https://media.rawg.io/media/screenshots/97c/97c8f93509436d5fed288247b406e2e1_E0cjjr4.jpg"
+      },
+      {
+        "id": 3036686,
+        "image": "https://media.rawg.io/media/screenshots/fa3/fa38af1eade91f988c6de8b994dfe37e.jpg"
+      },
+      {
+        "id": 3036687,
+        "image": "https://media.rawg.io/media/screenshots/4a3/4a3151266e67ca40e3a38b39ab98ec52.jpg"
+      },
+      {
+        "id": 3036689,
+        "image": "https://media.rawg.io/media/screenshots/31f/31f0ff47f4f21a3e83b8f354e38e0a8d.jpg"
+      },
+      {
+        "id": 3036690,
+        "image": "https://media.rawg.io/media/screenshots/d98/d98af0bd19f496faaaec02722221e75c.jpg"
+      },
+      {
+        "id": 3036691,
+        "image": "https://media.rawg.io/media/screenshots/206/20631430a21c28a40ba884157c8be355.jpg"
+      }
+    ]
   },
   {
     "id": 622492,
@@ -1719,7 +1927,36 @@
       "name": "Everyone",
       "slug": "everyone"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/082/082365507ff04d456c700157072d35db.jpg"
+      },
+      {
+        "id": 2882904,
+        "image": "https://media.rawg.io/media/screenshots/5e2/5e2e7ccb084034da25d0b21b7c03c273.jpg"
+      },
+      {
+        "id": 2882905,
+        "image": "https://media.rawg.io/media/screenshots/6c6/6c69fe99ec23d08b2b0a62feb9d89c65.jpg"
+      },
+      {
+        "id": 2882906,
+        "image": "https://media.rawg.io/media/screenshots/32c/32c5651c381e6b628c5ac681601a036a.jpg"
+      },
+      {
+        "id": 2882907,
+        "image": "https://media.rawg.io/media/screenshots/312/3122a56932654c304a60e9ef762277a7.jpg"
+      },
+      {
+        "id": 2882908,
+        "image": "https://media.rawg.io/media/screenshots/04c/04c7be71d5fd1abace38c90aaa95529d.jpg"
+      },
+      {
+        "id": 2882909,
+        "image": "https://media.rawg.io/media/screenshots/797/7979f94d39181787ee248a423191563f.jpg"
+      }
+    ]
   },
   {
     "id": 452633,
@@ -1847,7 +2084,36 @@
       }
     ],
     "esrb_rating": null,
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/3f6/3f6a04b856f23310d3c2f5be8c5963f7.jpg"
+      },
+      {
+        "id": 2414052,
+        "image": "https://media.rawg.io/media/screenshots/63b/63bd4904de4a4dcc58f86b6d75651631.jpg"
+      },
+      {
+        "id": 2414053,
+        "image": "https://media.rawg.io/media/screenshots/3ba/3ba37890dec761493add08abab7e1cb9.jpg"
+      },
+      {
+        "id": 2414054,
+        "image": "https://media.rawg.io/media/screenshots/5b3/5b32c70f6fb30ae5879c3ac93f2351dd.jpg"
+      },
+      {
+        "id": 2414055,
+        "image": "https://media.rawg.io/media/screenshots/1f0/1f02bf3b452bdd54bc36b7787ec7f384.jpg"
+      },
+      {
+        "id": 2414056,
+        "image": "https://media.rawg.io/media/screenshots/a4b/a4b7954426e5ad8e612d5bd2d856bb9e.jpg"
+      },
+      {
+        "id": 2414057,
+        "image": "https://media.rawg.io/media/screenshots/1bb/1bbfc8b0b6015879d8a75f2718d50ba4.jpg"
+      }
+    ]
   },
   {
     "id": 962397,
@@ -2257,7 +2523,36 @@
       "name": "Everyone",
       "slug": "everyone"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/ef7/ef7cf3546df79efc52d99401afb36e7b.jpg"
+      },
+      {
+        "id": 3897284,
+        "image": "https://media.rawg.io/media/screenshots/4e6/4e67931a8e3fa0ad915a797f9743e2de.jpg"
+      },
+      {
+        "id": 3897285,
+        "image": "https://media.rawg.io/media/screenshots/507/5078285a23ca558b18ada9b8aec83de8.jpg"
+      },
+      {
+        "id": 3897286,
+        "image": "https://media.rawg.io/media/screenshots/929/929d7c89c8cc654975d48857069971d9.jpg"
+      },
+      {
+        "id": 3897287,
+        "image": "https://media.rawg.io/media/screenshots/ca8/ca84f1e67d6199e62126ca17ac84a6df.jpg"
+      },
+      {
+        "id": 3897288,
+        "image": "https://media.rawg.io/media/screenshots/261/261c9b9ddb578f05b044935fc28f48b4.jpg"
+      },
+      {
+        "id": 3897289,
+        "image": "https://media.rawg.io/media/screenshots/78d/78d9c93f97d225cd424b329aecc28204.jpg"
+      }
+    ]
   },
   {
     "id": 861287,
@@ -2296,12 +2591,12 @@
     ],
     "ratings_count": 112,
     "reviews_text_count": 3,
-    "added": 893,
+    "added": 894,
     "added_by_status": {
       "yet": 52,
       "owned": 553,
       "beaten": 65,
-      "toplay": 110,
+      "toplay": 111,
       "dropped": 81,
       "playing": 32
     },
@@ -2552,7 +2847,32 @@
       "name": "Teen",
       "slug": "teen"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/d7b/d7b45d416ca18bf86f9f1638ee331efa.jpg"
+      },
+      {
+        "id": 3595539,
+        "image": "https://media.rawg.io/media/screenshots/2f7/2f74b13e004fb62283da24b186d9f9b8.jpg"
+      },
+      {
+        "id": 3595540,
+        "image": "https://media.rawg.io/media/screenshots/439/4399dc5a7bc5dfd831435ffa693f1271.jpg"
+      },
+      {
+        "id": 3595541,
+        "image": "https://media.rawg.io/media/screenshots/00f/00f8eeb60ae6d51a5598ca8d090b9b41.jpg"
+      },
+      {
+        "id": 3595583,
+        "image": "https://media.rawg.io/media/screenshots/fa7/fa7f0192ea02d2901bd7bca7803dddd7_WqKG3wC.jpg"
+      },
+      {
+        "id": 3595584,
+        "image": "https://media.rawg.io/media/screenshots/42f/42fad52163df78b29e54fe13a02bf52d.jpg"
+      }
+    ]
   },
   {
     "id": 563420,
@@ -3041,7 +3361,36 @@
       }
     ],
     "esrb_rating": null,
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/201/201feb4db3118c1440ebdce03e61e3fb.jpg"
+      },
+      {
+        "id": 2731133,
+        "image": "https://media.rawg.io/media/screenshots/559/559ab6b928e8b224b586f27c17140f2c.jpg"
+      },
+      {
+        "id": 2731134,
+        "image": "https://media.rawg.io/media/screenshots/b6b/b6bbffe55ed45f362921748fde8f94bd.jpg"
+      },
+      {
+        "id": 2731135,
+        "image": "https://media.rawg.io/media/screenshots/a07/a079fb1808dd91a5ddca09b4a18df22e.jpg"
+      },
+      {
+        "id": 2731136,
+        "image": "https://media.rawg.io/media/screenshots/1f5/1f5551f8d6af56a9fabab1e0866a6897.jpg"
+      },
+      {
+        "id": 2731137,
+        "image": "https://media.rawg.io/media/screenshots/e1a/e1ad30c65e2d9f7b4607e7ea0869efeb.jpg"
+      },
+      {
+        "id": 2731138,
+        "image": "https://media.rawg.io/media/screenshots/47f/47f2469da51e6f3643012f3a3fffb87d.jpg"
+      }
+    ]
   },
   {
     "id": 274755,
@@ -3080,10 +3429,10 @@
     ],
     "ratings_count": 1911,
     "reviews_text_count": 39,
-    "added": 8506,
+    "added": 8507,
     "added_by_status": {
       "yet": 459,
-      "owned": 4959,
+      "owned": 4960,
       "beaten": 1288,
       "toplay": 710,
       "dropped": 609,
@@ -3447,7 +3796,36 @@
       "name": "Teen",
       "slug": "teen"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/1f4/1f47a270b8f241e4676b14d39ec620f7.jpg"
+      },
+      {
+        "id": 1767940,
+        "image": "https://media.rawg.io/media/screenshots/546/546826ed2cde2dec94e1b470c8cbb9ac.jpg"
+      },
+      {
+        "id": 1767941,
+        "image": "https://media.rawg.io/media/screenshots/0aa/0aa5e778c3cf8f47e3ee7f8e0185eb16.jpg"
+      },
+      {
+        "id": 1767942,
+        "image": "https://media.rawg.io/media/screenshots/a06/a0649473a36bb879cef146a244d9cb54.jpg"
+      },
+      {
+        "id": 1767943,
+        "image": "https://media.rawg.io/media/screenshots/f70/f7079ac3e96a5da13c8cfda6fb9fe249.jpg"
+      },
+      {
+        "id": 1767944,
+        "image": "https://media.rawg.io/media/screenshots/8d4/8d4d9c4ffe01ad0addc29353a895d562.jpg"
+      },
+      {
+        "id": 1853036,
+        "image": "https://media.rawg.io/media/screenshots/ece/eceaae77766d7f7b0fdfa4f3bb4eff98.jpg"
+      }
+    ]
   },
   {
     "id": 91109,
@@ -3599,7 +3977,36 @@
       }
     ],
     "esrb_rating": null,
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/screenshots/8f4/8f42ac1ddc65c131bdba00a6764f2adb.jpg"
+      },
+      {
+        "id": 993748,
+        "image": "https://media.rawg.io/media/screenshots/c59/c5979caf68f102acd836df5a8aae2513.jpg"
+      },
+      {
+        "id": 993751,
+        "image": "https://media.rawg.io/media/screenshots/0e9/0e9a7d646a3aeec8cfc0f15d12d5475a.jpg"
+      },
+      {
+        "id": 993753,
+        "image": "https://media.rawg.io/media/screenshots/7d5/7d5c5e94dab8723e9227296445cfefdc.jpg"
+      },
+      {
+        "id": 993755,
+        "image": "https://media.rawg.io/media/screenshots/d65/d6547eb808b2b648cc99fcfdd85d44c2.jpg"
+      },
+      {
+        "id": 993756,
+        "image": "https://media.rawg.io/media/screenshots/e25/e253309fe1c5ebbf5d130a9d8fcbc096.jpg"
+      },
+      {
+        "id": 993759,
+        "image": "https://media.rawg.io/media/screenshots/10f/10f3f19f9fc8c6b1a15aaa3ef23e83ef.jpg"
+      }
+    ]
   },
   {
     "id": 2574,
@@ -3638,10 +4045,10 @@
     ],
     "ratings_count": 1035,
     "reviews_text_count": 11,
-    "added": 5234,
+    "added": 5235,
     "added_by_status": {
       "yet": 308,
-      "owned": 3638,
+      "owned": 3639,
       "beaten": 317,
       "toplay": 102,
       "dropped": 663,
@@ -4056,7 +4463,36 @@
       "name": "Teen",
       "slug": "teen"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/3be/3be0e624424d3453005019799a760af2.jpg"
+      },
+      {
+        "id": 23483,
+        "image": "https://media.rawg.io/media/screenshots/056/0565c6387fbf0eff99ba4a04c4aaae97.jpg"
+      },
+      {
+        "id": 23487,
+        "image": "https://media.rawg.io/media/screenshots/d6b/d6b29667b38b72d7cf4e375381902d54.jpg"
+      },
+      {
+        "id": 23489,
+        "image": "https://media.rawg.io/media/screenshots/02e/02e67e17f6f20fd83eb23442fa49168a.jpg"
+      },
+      {
+        "id": 23491,
+        "image": "https://media.rawg.io/media/screenshots/191/191a1d3aa2ec6399bb24097e38765313.jpg"
+      },
+      {
+        "id": 23493,
+        "image": "https://media.rawg.io/media/screenshots/dc8/dc8f430c38a35126f35ad0d78cabd0cf.jpg"
+      },
+      {
+        "id": 23495,
+        "image": "https://media.rawg.io/media/screenshots/4f3/4f39f049a7b59b93d261469c3c4ecd30.jpg"
+      }
+    ]
   },
   {
     "id": 428839,
@@ -4319,7 +4755,36 @@
       }
     ],
     "esrb_rating": null,
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/776/776ebcf6f05c98eab89af736e6f38283.jpg"
+      },
+      {
+        "id": 2344093,
+        "image": "https://media.rawg.io/media/screenshots/604/604e1cefc4aed4d7ed21bf7c6889a8e0.jpg"
+      },
+      {
+        "id": 2344094,
+        "image": "https://media.rawg.io/media/screenshots/679/679a6ca5bafed0a299c992c87f36b461.jpg"
+      },
+      {
+        "id": 2344095,
+        "image": "https://media.rawg.io/media/screenshots/380/380033c17f9326d54748ea328f97208f.jpg"
+      },
+      {
+        "id": 2344096,
+        "image": "https://media.rawg.io/media/screenshots/8ce/8ceaf730bad25d8cc24512cb511f9517.jpg"
+      },
+      {
+        "id": 2344097,
+        "image": "https://media.rawg.io/media/screenshots/cb1/cb14928f37b22e0f380ed277cbb64aee.jpg"
+      },
+      {
+        "id": 2344098,
+        "image": "https://media.rawg.io/media/screenshots/e57/e57b1c60d2ba61406a372a9f0b8fef06.jpg"
+      }
+    ]
   },
   {
     "id": 685577,
@@ -4358,10 +4823,10 @@
     ],
     "ratings_count": 667,
     "reviews_text_count": 14,
-    "added": 4746,
+    "added": 4747,
     "added_by_status": {
       "yet": 60,
-      "owned": 3750,
+      "owned": 3751,
       "beaten": 405,
       "toplay": 77,
       "dropped": 281,
@@ -4747,7 +5212,28 @@
       }
     ],
     "esrb_rating": null,
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/501/501e7019925a3c692bf1c8062f07abe6.jpg"
+      },
+      {
+        "id": 3084737,
+        "image": "https://media.rawg.io/media/screenshots/989/989ac4881dec59e10b459572a379fe60.jpg"
+      },
+      {
+        "id": 3084738,
+        "image": "https://media.rawg.io/media/screenshots/112/1129db7a8a6d54d6607993d0e2e860f2.jpg"
+      },
+      {
+        "id": 3084739,
+        "image": "https://media.rawg.io/media/screenshots/e22/e22f56c1fc8327fb0d955601cbfa0e64.jpg"
+      },
+      {
+        "id": 3084740,
+        "image": "https://media.rawg.io/media/screenshots/200/2001e79e5c74812a1f29a5d9d09e67d1.jpg"
+      }
+    ]
   },
   {
     "id": 28,
@@ -4762,8 +5248,8 @@
       {
         "id": 5,
         "title": "exceptional",
-        "count": 3830,
-        "percent": 73.44
+        "count": 3831,
+        "percent": 73.45
       },
       {
         "id": 4,
@@ -4775,7 +5261,7 @@
         "id": 3,
         "title": "meh",
         "count": 285,
-        "percent": 5.47
+        "percent": 5.46
       },
       {
         "id": 1,
@@ -4784,12 +5270,12 @@
         "percent": 2.99
       }
     ],
-    "ratings_count": 5101,
+    "ratings_count": 5102,
     "reviews_text_count": 114,
-    "added": 15800,
+    "added": 15802,
     "added_by_status": {
       "yet": 953,
-      "owned": 8345,
+      "owned": 8347,
       "beaten": 3259,
       "toplay": 1615,
       "dropped": 706,
@@ -4798,8 +5284,8 @@
     "metacritic": 96,
     "playtime": 21,
     "suggestions_count": 616,
-    "updated": "2024-12-09T08:44:40",
-    "reviews_count": 5215,
+    "updated": "2024-12-09T16:07:25",
+    "reviews_count": 5216,
     "saturated_color": "0f0f0f",
     "dominant_color": "0f0f0f",
     "platforms": [
@@ -5187,7 +5673,36 @@
       "name": "Mature",
       "slug": "mature"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/511/5118aff5091cb3efec399c808f8c598f.jpg"
+      },
+      {
+        "id": 778173,
+        "image": "https://media.rawg.io/media/screenshots/7b8/7b8895a23e8ca0dbd9e1ba24696579d9.jpg"
+      },
+      {
+        "id": 778174,
+        "image": "https://media.rawg.io/media/screenshots/b8c/b8cee381079d58b981594ede46a3d6ca.jpg"
+      },
+      {
+        "id": 778175,
+        "image": "https://media.rawg.io/media/screenshots/fd6/fd6e41d4c30c098158568aef32dfed35.jpg"
+      },
+      {
+        "id": 778176,
+        "image": "https://media.rawg.io/media/screenshots/2ed/2ed3b2791b3bbed6b98bf362694aeb73.jpg"
+      },
+      {
+        "id": 778177,
+        "image": "https://media.rawg.io/media/screenshots/857/8573b9f4f06a0c112d6e39cdf3544881.jpg"
+      },
+      {
+        "id": 778178,
+        "image": "https://media.rawg.io/media/screenshots/985/985e3e1f1d1af1ab0797d43a95d472cc.jpg"
+      }
+    ]
   },
   {
     "id": 326243,
@@ -5226,10 +5741,10 @@
     ],
     "ratings_count": 1254,
     "reviews_text_count": 38,
-    "added": 7382,
+    "added": 7383,
     "added_by_status": {
       "yet": 376,
-      "owned": 4429,
+      "owned": 4430,
       "beaten": 932,
       "toplay": 982,
       "dropped": 354,
@@ -5570,7 +6085,36 @@
       "name": "Mature",
       "slug": "mature"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/b29/b294fdd866dcdb643e7bab370a552855.jpg"
+      },
+      {
+        "id": 2877235,
+        "image": "https://media.rawg.io/media/screenshots/36f/36f941f72e2b2a41629f5fb3bd448688.jpg"
+      },
+      {
+        "id": 2877236,
+        "image": "https://media.rawg.io/media/screenshots/290/29096848622521df7555850000236cb6.jpg"
+      },
+      {
+        "id": 2877237,
+        "image": "https://media.rawg.io/media/screenshots/807/807685454ea8fb87363eedd49677f49b.jpg"
+      },
+      {
+        "id": 2877238,
+        "image": "https://media.rawg.io/media/screenshots/2ee/2eea4d4cce2836f689d9d39d2a4a94d5.jpg"
+      },
+      {
+        "id": 2877239,
+        "image": "https://media.rawg.io/media/screenshots/de9/de9b28bdd0bdb9937c7f82e55f845bb6.jpg"
+      },
+      {
+        "id": 2877240,
+        "image": "https://media.rawg.io/media/screenshots/3a2/3a2e5f31e2061bc566bcfd30fda56a17.jpg"
+      }
+    ]
   },
   {
     "id": 452642,
@@ -5841,7 +6385,36 @@
       "name": "Teen",
       "slug": "teen"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/bf7/bf73b105ccbba42107986bbcd96fcada.jpg"
+      },
+      {
+        "id": 2408615,
+        "image": "https://media.rawg.io/media/screenshots/fce/fce949e5f5900b54b245d5e2c1fb7020.jpg"
+      },
+      {
+        "id": 2408617,
+        "image": "https://media.rawg.io/media/screenshots/542/54203d80367d6f925adfae63deb117f3.jpg"
+      },
+      {
+        "id": 2408618,
+        "image": "https://media.rawg.io/media/screenshots/d3e/d3eb9f8a14be7dfa65900b679fe90fb4.jpg"
+      },
+      {
+        "id": 2408619,
+        "image": "https://media.rawg.io/media/screenshots/230/230471fafd4793bc569afe4a11643a31.jpg"
+      },
+      {
+        "id": 2408622,
+        "image": "https://media.rawg.io/media/screenshots/b9a/b9a2016023218c7cbea98caaed1894ab.jpg"
+      },
+      {
+        "id": 2408623,
+        "image": "https://media.rawg.io/media/screenshots/a47/a477c60ff2da42886f543e0833aefe86.jpg"
+      }
+    ]
   },
   {
     "id": 662316,
@@ -5979,6 +6552,35 @@
       "name": "Teen",
       "slug": "teen"
     },
-    "short_screenshots": []
+    "short_screenshots": [
+      {
+        "id": -1,
+        "image": "https://media.rawg.io/media/games/7ae/7ae5a14cdb4ab222a134c15f4629e430.jpg"
+      },
+      {
+        "id": 3020860,
+        "image": "https://media.rawg.io/media/screenshots/89b/89b077deb2a3ce38e071fdb5caae69c0.jpg"
+      },
+      {
+        "id": 3020861,
+        "image": "https://media.rawg.io/media/screenshots/c71/c718076de2326247d29ea5ed32e67c6c.jpg"
+      },
+      {
+        "id": 3020862,
+        "image": "https://media.rawg.io/media/screenshots/74e/74e29808dd23446aae1ab61bb5a429fc.jpg"
+      },
+      {
+        "id": 3020863,
+        "image": "https://media.rawg.io/media/screenshots/ea0/ea082dba5c51799204e0c5e55134ecc3.jpg"
+      },
+      {
+        "id": 3020871,
+        "image": "https://media.rawg.io/media/screenshots/7d1/7d112ad515211a01639d22eef5093c47.jpg"
+      },
+      {
+        "id": 3020872,
+        "image": "https://media.rawg.io/media/screenshots/6ff/6ff530af3788338486569ce723d503bd.jpg"
+      }
+    ]
   }
 ]
