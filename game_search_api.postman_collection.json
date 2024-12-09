@@ -1,0 +1,123 @@
+{
+  "info": {
+    "name": "Game Search API Test Queries",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Action RPG 2023",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8000/search?q=action rpg 2023",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["search"],
+          "query": [
+            {
+              "key": "q",
+              "value": "action rpg 2023"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. Nintendo Switch Exclusive",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8000/search?q=nintendo switch exclusive&platform=Nintendo Switch",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["search"],
+          "query": [
+            {
+              "key": "q",
+              "value": "nintendo switch exclusive"
+            },
+            {
+              "key": "platform",
+              "value": "Nintendo Switch"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "3. High Rated Racing Games",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8000/search?q=high rated racing games&genre=Racing&min_rating=4.0&sort_by=rating",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["search"],
+          "query": [
+            {
+              "key": "q",
+              "value": "high rated racing games"
+            },
+            {
+              "key": "genre",
+              "value": "Racing"
+            },
+            {
+              "key": "min_rating",
+              "value": "4.0"
+            },
+            {
+              "key": "sort_by",
+              "value": "rating"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "4. Indie Roguelike",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8000/search?q=indie roguelike",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["search"],
+          "query": [
+            {
+              "key": "q",
+              "value": "indie roguelike"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "5. Open World Adventure",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8000/search?q=open world adventure&genre=Adventure",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["search"],
+          "query": [
+            {
+              "key": "q",
+              "value": "open world adventure"
+            },
+            {
+              "key": "genre",
+              "value": "Adventure"
+            }
+          ]
+        }
+      }
+    }
+  ]
+} 

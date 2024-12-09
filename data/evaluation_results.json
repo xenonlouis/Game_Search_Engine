@@ -1,0 +1,167 @@
+[
+  {
+    "Query": "Action RPG 2023",
+    "Precision": "0.80",
+    "Recall": "1.00",
+    "F1-Score": "0.89",
+    "Response Time": "12ms",
+    "True Positives": 4,
+    "False Positives": 1,
+    "False Negatives": 0,
+    "Results": [
+      "The Legend of Zelda: Tears of the Kingdom",
+      "Lies Of P",
+      "Sea of Stars",
+      "Marvel's Spider-Man 2",
+      "F1 23"
+    ],
+    "Expected": [
+      "The Legend of Zelda: Tears of the Kingdom",
+      "Lies Of P",
+      "Sea of Stars",
+      "Marvel's Spider-Man 2"
+    ],
+    "Confusion Matrix": [
+      [
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        4.0
+      ]
+    ]
+  },
+  {
+    "Query": "Nintendo Switch Exclusive",
+    "Precision": "0.60",
+    "Recall": "0.60",
+    "F1-Score": "0.60",
+    "Response Time": "10ms",
+    "True Positives": 3,
+    "False Positives": 2,
+    "False Negatives": 2,
+    "Results": [
+      "Bayonetta 3",
+      "The Legend of Zelda: Tears of the Kingdom",
+      "Enter the Gungeon",
+      "Hades",
+      "Pikmin 4"
+    ],
+    "Expected": [
+      "The Legend of Zelda: Tears of the Kingdom",
+      "Super Mario Bros. Wonder",
+      "Pikmin 4",
+      "Fire Emblem Engage",
+      "Bayonetta 3"
+    ],
+    "Confusion Matrix": [
+      [
+        0.0,
+        2.0
+      ],
+      [
+        2.0,
+        3.0
+      ]
+    ]
+  },
+  {
+    "Query": "High Rated Racing Games",
+    "Precision": "1.00",
+    "Recall": "0.40",
+    "F1-Score": "0.57",
+    "Response Time": "7ms",
+    "True Positives": 2,
+    "False Positives": 0,
+    "False Negatives": 3,
+    "Results": [
+      "Forza Horizon 5",
+      "Gran Turismo 7"
+    ],
+    "Expected": [
+      "Forza Horizon 5",
+      "Gran Turismo 7",
+      "F1 23",
+      "Need for Speed Unbound",
+      "Hot Wheels Unleashed"
+    ],
+    "Confusion Matrix": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        3.0,
+        2.0
+      ]
+    ]
+  },
+  {
+    "Query": "Indie Roguelike",
+    "Precision": "1.00",
+    "Recall": "1.00",
+    "F1-Score": "1.00",
+    "Response Time": "7ms",
+    "True Positives": 4,
+    "False Positives": 0,
+    "False Negatives": 0,
+    "Results": [
+      "Enter the Gungeon",
+      "Hades",
+      "Rogue Legacy 2",
+      "Vampire Survivors"
+    ],
+    "Expected": [
+      "Hades",
+      "Enter the Gungeon",
+      "Rogue Legacy 2",
+      "Vampire Survivors"
+    ],
+    "Confusion Matrix": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        4.0
+      ]
+    ]
+  },
+  {
+    "Query": "Open World Adventure",
+    "Precision": "0.60",
+    "Recall": "0.50",
+    "F1-Score": "0.55",
+    "Response Time": "7ms",
+    "True Positives": 3,
+    "False Positives": 2,
+    "False Negatives": 3,
+    "Results": [
+      "The Legend of Zelda: Tears of the Kingdom",
+      "Horizon Forbidden West",
+      "Hades",
+      "Rogue Legacy 2",
+      "Super Mario Bros. Wonder"
+    ],
+    "Expected": [
+      "The Legend of Zelda: Tears of the Kingdom",
+      "Red Dead Redemption 2",
+      "Elden Ring",
+      "Horizon Forbidden West",
+      "Marvel's Spider-Man 2",
+      "Hades"
+    ],
+    "Confusion Matrix": [
+      [
+        0.0,
+        2.0
+      ],
+      [
+        3.0,
+        3.0
+      ]
+    ]
+  }
+]
