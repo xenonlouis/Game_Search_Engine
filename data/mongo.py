@@ -612,6 +612,119 @@ class GameDataProcessor:
             self.inverted_index.create_index([('game_refs.tf_idf', -1)])
 
 
+    def process_game(self, game_data):
+        try:
+            # Clean up old collections first (optional, depending on your needs)
+            self.cleanup_database()
+
+            # Create new collections and indexes
+            self.games_collection = self.db['games']
+            self.inverted_index = self.db['inverted_index']
+            self.collection_stats = self.db['collection_stats']
+
+            # Create indexes (if not already created)
+            self.games_collection.create_index('game_id', unique=True)
+            self.games_collection.create_index('normalized_name')
+            self.inverted_index.create_index('term')
+            self.inverted_index.create_index([('game_refs.game_id', 1)])
+            self.inverted_index.create_index([('game_refs.tf_idf', -1)])
+
+            # Process the game data (similar to processing the file but for one game)
+            # You would typically get the game data passed as a dictionary here
+            game_doc = self.process_single_game(game_data)
+
+            # Create inverted index for searchable fields
+            self.create_inverted_index(game_data['id'], game_data['name'], 'name')
+
+            # Create inverted index for description with additional steps
+            self.create_inverted_index_for_description(game_data['id'], game_doc['description'], 'description')
+
+            # Create inverted index for tags
+            for tag in game_data.get('tags', []):
+                self.create_inverted_index(game_data['id'], tag['name'], 'tag')
+
+            # Create inverted index for genres
+            for genre in game_data.get('genres', []):
+                self.create_inverted_index(game_data['id'], genre['name'], 'genre')
+
+            # Create inverted index for platforms
+            for platform in game_data.get('platforms', []):
+                self.create_inverted_index(game_data['id'], platform['platform']['name'], 'platform')
+
+            # Insert the game document into the database
+            self.games_collection.insert_one(game_doc)
+            print(f"Game {game_data['name']} added successfully with ID {game_data['id']}")
+
+            # Update TF-IDF scores after the game is processed
+            print("Updating TF-IDF scores...")
+            self.update_tf_idf_scores()
+            print("TF-IDF scores updated successfully!")
+
+            # Optionally, store collection statistics
+            self.collection_stats.insert_one({
+                'timestamp': datetime.now(),
+                'total_games': self.games_collection.count_documents({}),
+                'total_terms': self.inverted_index.count_documents({}),
+                'avg_terms_per_game': self.inverted_index.aggregate([
+                    {'$unwind': '$game_refs'},
+                    {'$group': {'_id': None, 'avg': {'$avg': '$game_refs.tf'}}}
+                ]).next()['avg']
+            })
+
+            print("Data processing for single game completed successfully!")
+
+        except Exception as e:
+            print(f"Error processing game: {str(e)}")
+
+        finally:
+            # Ensure indexes are created even if processing fails
+            self.games_collection.create_index('game_id', unique=True)
+            self.games_collection.create_index('normalized_name')
+            self.inverted_index.create_index('term')
+            self.inverted_index.create_index([('game_refs.game_id', 1)])
+            self.inverted_index.create_index([('game_refs.tf_idf', -1)])
+
+def process_single_game(self, game_data):
+    """
+    Process a single game's data and insert it into the database.
+    This is where the game is indexed and the TF-IDF scores are computed.
+    """
+    # Example of processing the game data similar to the batch processing from the file
+    game_id = game_data['id']  # Assuming the ID is already provided in the game_data
+    inverted_index = self.create_inverted_index(game_data['name'], game_data['description'])
+    
+    game_doc = {
+        'game_id': game_id,
+        'name': game_data['name'],
+        'description': game_data['description'],
+        'released': datetime.strptime(game_data['releaseDate'], '%Y-%m-%d'),
+        'background_image': game_data.get('backgroundImage'),
+        'rating': float(game_data['rating']),
+        'metacritic': game_data.get('metacritic'),
+        'platforms': [{
+            'platform': {
+                'name': game_data['platform'],
+                'slug': game_data['platform'].lower().replace(' ', '-'),
+            }
+        }],
+        'genres': [game_data['genre']],
+        'inverted_index': inverted_index,
+        'tags': [],  # Assuming you want to keep the same logic for tags
+        'added': 0,
+        'added_by_status': {},
+        'playtime': 0,
+        'suggestions_count': 0,
+        'updated': datetime.now(),
+        'reviews_count': 0,
+        'saturated_color': '0f0f0f',
+        'dominant_color': '0f0f0f'
+    }
+    
+    return game_doc
+
+
+
+
 def main():
     processor = GameDataProcessor()
     processor.process_json_file('rawg_games.json')

@@ -10,6 +10,7 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import nltk
 from pydantic import BaseModel
+from mongo import GameProcessor  # Importer la classe GameProcessor
 
 # Download NLTK data
 nltk.download('punkt')
@@ -299,17 +300,52 @@ async def get_game(game_id: int):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.post("/games/")
-async def add_game(game: GameCreate):
+
+# Pydantic modèle pour la validation des données d'entrée (jeux)
+class Game(BaseModel):
+    id: str
+    name: str
+    description: str
+    releaseDate: str
+    rating: float
+    platform: str
+    genre: str
+    tags: List[dict]
+    genres: List[dict]
+    platforms: List[dict]
+    backgroundImage: str
+    metacritic: int
+
+# Instancier le GameProcessor (l'exemple assume que vous avez déjà une base de données configurée)
+game_processor = GameProcessor()
+
+# Endpoint pour ajouter un jeu unique
+@app.post("/add_game/")
+async def add_game(game: Game):
     try:
-        # Process the game data
-        game_doc = process_game(game.dict())
-        # Insert into database
-        result = db.games.insert_one(game_doc)
-        # Return success response
-        return JSONResponse(
-            status_code=201,
-            content={"message": "Game added successfully", "id": str(result.inserted_id)}
-        )
+        # Convertir l'objet Pydantic en dictionnaire
+        game_data = game.dict()
+
+        # Appeler la méthode de traitement du jeu
+        game_processor.process_game(game_data)
+
+        return {"message": f"Game {game.name} added successfully!"}
+
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Error adding game: {str(e)}")
+
+
+# @app.post("/games/")
+# async def add_game(game: GameCreate):
+#     try:
+#         # Process the game data
+#         game_doc = process_game(game.dict())
+#         # Insert into database
+#         result = db.games.insert_one(game_doc)
+#         # Return success response
+#         return JSONResponse(
+#             status_code=201,
+#             content={"message": "Game added successfully", "id": str(result.inserted_id)}
+#         )
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=str(e))
