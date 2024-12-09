@@ -7,10 +7,12 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import math
+from nltk.stem import WordNetLemmatizer
 
 # Download required NLTK data
 nltk.download('punkt')
 nltk.download('stopwords')
+nltk.download('wordnet')
 
 
 class GameDataProcessor:
@@ -25,7 +27,7 @@ class GameDataProcessor:
         # Text processing tools
         self.stemmer = PorterStemmer()
         self.stop_words = set(stopwords.words('english'))
-
+        self.lemmatizer = WordNetLemmatizer()
         # Field weights for different types of content
         self.field_weights = {
             'name': 2.0,      # Game names are most important
@@ -71,6 +73,46 @@ class GameDataProcessor:
                     normalized_tokens.append(self.stemmer.stem(plural))
         
         return list(set(normalized_tokens))  # Remove duplicates
+
+    def process_description(self, description):
+    # Traite et normalise le texte de la description avec des améliorations :
+    #- Suppression intelligente des stopwords.
+    #- Détection des entités nommées.
+    #- Ajout de n-grammes pour les termes importants.
+
+    #Args:
+    #     description (str): Texte de la description.
+
+    # Returns:
+    #     list: Liste de termes normalisés, enrichis avec n-grammes.
+    
+        if not description:
+            return []
+
+        # Convertir en minuscules et nettoyer
+        description = description.lower()
+        description = re.sub(r'[^a-zA-Z0-9\s-]', '', description)
+        description = description.replace('-', ' ')
+        
+        # Tokenisation avancée
+        tokens = word_tokenize(description)
+        
+        # Suppression des stopwords
+        filtered_tokens = [token for token in tokens if token not in self.stop_words]
+        
+        # Lemmatisation et n-grammes
+        lemmatized_tokens = [self.lemmatizer.lemmatize(token) for token in filtered_tokens]
+        ngrams = [
+            ' '.join(lemmatized_tokens[i:i+2]) 
+            for i in range(len(lemmatized_tokens) - 1)
+        ]  # bi-grammes
+        
+        # Fusionner tokens uniques et n-grammes
+        unique_terms = list(set(lemmatized_tokens + ngrams))
+        
+        return unique_terms
+
+
 
     def calculate_tf_idf(self, tf, df, total_docs):
         """
@@ -144,6 +186,64 @@ class GameDataProcessor:
                 },
                 upsert=True
             )
+
+    def create_inverted_index_for_description(self, game_id, text, field):
+        tokens = self.process_description(text)
+        doc_length = len(tokens)
+
+        # Count term frequency
+        term_freq = {}
+        for position, token in enumerate(tokens):
+            if token not in term_freq:
+                term_freq[token] = {
+                    'count': 1,
+                    'positions': [position]
+                }
+            else:
+                term_freq[token]['count'] += 1
+                term_freq[token]['positions'].append(position)
+
+        # Calculate field weight
+        field_weight = self.field_weights.get(field, 1.0)
+
+        # Get total number of documents
+        total_docs = self.games_collection.count_documents({})
+
+        # Update inverted index with tf-idf scores
+        for token, data in term_freq.items():
+            # Get current document frequency
+            term_doc = self.inverted_index.find_one({'term': token}) or {'game_refs': []}
+            df = len(term_doc['game_refs'])
+            
+            # Calculate TF-IDF score
+            tf_idf = self.calculate_tf_idf(data['count'], df, total_docs)
+            
+            # Apply field weight to tf-idf
+            weighted_score = tf_idf * field_weight
+
+            self.inverted_index.update_one(
+                {'term': token},
+                {
+                    '$push': {
+                        'game_refs': {
+                            'game_id': game_id,
+                            'field': field,
+                            'tf': data['count'],
+                            'tf_idf': weighted_score,
+                            'positions': data['positions'],
+                            'doc_length': doc_length
+                        }
+                    },
+                    '$inc': {
+                        'total_occurrences': data['count'],
+                        'document_frequency': 1
+                    }
+                },
+                upsert=True
+            )
+
+
+
 
     def update_tf_idf_scores(self):
         """
@@ -407,8 +507,8 @@ class GameDataProcessor:
                 # Create inverted index for searchable fields
                 self.create_inverted_index(game_data['id'], game_data['name'], 'name')
                 
-                # Create inverted index for description
-                self.create_inverted_index(game_data['id'], game_doc['description'], 'description')
+                # Create inverted index for description avec des étapes ajouter de l'indexation
+                self.create_inverted_index_for_description(game_data['id'], game_doc['description'], 'description')
 
                 # Create inverted index for tags
                 for tag in game_data.get('tags', []):
@@ -514,8 +614,7 @@ class GameDataProcessor:
 
 def main():
     processor = GameDataProcessor()
-   #processor.process_json_file('./data/games_1000.json')
-    processor.process_json_file('./data/rawg_games.json')
+    processor.process_json_file('rawg_games.json')
     print("Data processing completed!")
 
 
