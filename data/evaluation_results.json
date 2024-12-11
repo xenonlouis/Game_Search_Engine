@@ -1,0 +1,243 @@
+[
+  {
+    "Query": "Action RPG 2023",
+    "Precision": "0.82",
+    "Recall": "1.00",
+    "F1-Score": "0.90",
+    "Response Time": "13ms",
+    "True Positives": 14,
+    "False Positives": 3,
+    "True Negatives": 5,
+    "Results": [
+      "F1 23",
+      "Hades",
+      "Elden Ring",
+      "The Legend of Zelda: Tears of the Kingdom",
+      "Rogue Legacy 2",
+      "Horizon Forbidden West",
+      "Lies Of P",
+      "Vampire Survivors",
+      "Fire Emblem Engage",
+      "Pikmin 4",
+      "Need for Speed Unbound",
+      "Sea of Stars",
+      "Red Dead Redemption 2",
+      "Enter the Gungeon",
+      "Bayonetta 3",
+      "Dead Cell",
+      "Marvel's Spider-Man 2"
+    ],
+    "Expected": [
+      "F1 23",
+      "Hades",
+      "Elden Ring",
+      "The Legend of Zelda: Tears of the Kingdom",
+      "Rogue Legacy 2",
+      "Horizon Forbidden West",
+      "Lies Of P",
+      "Vampire Survivors",
+      "Fire Emblem Engage",
+      "Pikmin 4",
+      "Need for Speed Unbound",
+      "Sea of Stars",
+      "Red Dead Redemption 2",
+      "Enter the Gungeon"
+    ],
+    "Confusion Matrix": [
+      [
+        5.0,
+        3.0
+      ],
+      [
+        0.0,
+        14.0
+      ]
+    ]
+  },
+  {
+    "Query": "Nintendo Switch Exclusive",
+    "Precision": "0.67",
+    "Recall": "1.00",
+    "F1-Score": "0.80",
+    "Response Time": "9ms",
+    "True Positives": 10,
+    "False Positives": 5,
+    "True Negatives": 7,
+    "Results": [
+      "Bayonetta 3",
+      "The Legend of Zelda: Tears of the Kingdom",
+      "Enter the Gungeon",
+      "Hades",
+      "Pikmin 4",
+      "Sea of Stars",
+      "Rogue Legacy 2",
+      "Hot Wheels Unleashed",
+      "Vampire Survivors",
+      "Fire Emblem Engage",
+      "Octopath Traveler 2",
+      "Super Mario Bros. Wonder",
+      "Gran Turismo 7",
+      "Horizon Forbidden West",
+      "Marvel's Spider-Man 2"
+    ],
+    "Expected": [
+      "Bayonetta 3",
+      "The Legend of Zelda: Tears of the Kingdom",
+      "Enter the Gungeon",
+      "Hades",
+      "Pikmin 4",
+      "Sea of Stars",
+      "Rogue Legacy 2",
+      "Hot Wheels Unleashed",
+      "Vampire Survivors",
+      "Fire Emblem Engage"
+    ],
+    "Confusion Matrix": [
+      [
+        7.0,
+        5.0
+      ],
+      [
+        0.0,
+        10.0
+      ]
+    ]
+  },
+  {
+    "Query": "High Rated Racing Games",
+    "Precision": "0.45",
+    "Recall": "1.00",
+    "F1-Score": "0.62",
+    "Response Time": "9ms",
+    "True Positives": 5,
+    "False Positives": 6,
+    "True Negatives": 11,
+    "Results": [
+      "Hot Wheels Unleashed",
+      "Gran Turismo 7",
+      "Need for Speed Unbound",
+      "F1 23",
+      "Forza Horizon 5",
+      "Enter the Gungeon",
+      "Bayonetta 3",
+      "Dead Cell",
+      "Hades",
+      "Rogue Legacy 2",
+      "Vampire Survivors"
+    ],
+    "Expected": [
+      "Forza Horizon 5",
+      "Gran Turismo 7",
+      "F1 23",
+      "Need for Speed Unbound",
+      "Hot Wheels Unleashed"
+    ],
+    "Confusion Matrix": [
+      [
+        11.0,
+        6.0
+      ],
+      [
+        0.0,
+        5.0
+      ]
+    ]
+  },
+  {
+    "Query": "Indie Roguelike",
+    "Precision": "1.00",
+    "Recall": "1.00",
+    "F1-Score": "1.00",
+    "Response Time": "8ms",
+    "True Positives": 4,
+    "False Positives": 0,
+    "True Negatives": 18,
+    "Results": [
+      "Enter the Gungeon",
+      "Hades",
+      "Rogue Legacy 2",
+      "Vampire Survivors"
+    ],
+    "Expected": [
+      "Hades",
+      "Enter the Gungeon",
+      "Rogue Legacy 2",
+      "Vampire Survivors"
+    ],
+    "Confusion Matrix": [
+      [
+        18.0,
+        0.0
+      ],
+      [
+        0.0,
+        4.0
+      ]
+    ]
+  },
+  {
+    "Query": "Open World Adventure",
+    "Precision": "0.86",
+    "Recall": "1.00",
+    "F1-Score": "0.93",
+    "Response Time": "8ms",
+    "True Positives": 19,
+    "False Positives": 3,
+    "True Negatives": 0,
+    "Results": [
+      "Marvel's Spider-Man 2",
+      "Red Dead Redemption 2",
+      "Elden Ring",
+      "Dead Cell",
+      "The Legend of Zelda: Tears of the Kingdom",
+      "Horizon Forbidden West",
+      "Pikmin 4",
+      "Sea of Stars",
+      "Fire Emblem Engage",
+      "Octopath Traveler 2",
+      "Hades",
+      "Rogue Legacy 2",
+      "F1 23",
+      "Super Mario Bros. Wonder",
+      "Lies Of P",
+      "Forza Horizon 5",
+      "Need for Speed Unbound",
+      "Bayonetta 3",
+      "Gran Turismo 7",
+      "Vampire Survivors",
+      "Enter the Gungeon",
+      "Hot Wheels Unleashed"
+    ],
+    "Expected": [
+      "Marvel's Spider-Man 2",
+      "Red Dead Redemption 2",
+      "Elden Ring",
+      "Dead Cell",
+      "The Legend of Zelda: Tears of the Kingdom",
+      "Horizon Forbidden West",
+      "Pikmin 4",
+      "Sea of Stars",
+      "Fire Emblem Engage",
+      "Octopath Traveler 2",
+      "Hades",
+      "Rogue Legacy 2",
+      "F1 23",
+      "Super Mario Bros. Wonder",
+      "Lies Of P",
+      "Forza Horizon 5",
+      "Need for Speed Unbound",
+      "Bayonetta 3",
+      "Gran Turismo 7"
+    ],
+    "Confusion Matrix": [
+      [
+        0.0,
+        3.0
+      ],
+      [
+        0.0,
+        19.0
+      ]
+    ]
+  }
+]

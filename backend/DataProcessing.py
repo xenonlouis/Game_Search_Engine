@@ -174,72 +174,6 @@ class GameDataProcessor:
                     }
                 )
 
-    def generate_description(self, game_data):
-        """
-        Generate a description for a game using available metadata
-        """
-        try:
-            name = game_data.get('name', '')
-            genres = [g.get('name', '') for g in game_data.get('genres', []) if g and isinstance(g, dict)]
-            tags = [t.get('name', '') for t in game_data.get('tags', []) if t and isinstance(t, dict)]
-            platforms = [
-                p.get('platform', {}).get('name', '')
-                for p in game_data.get('platforms', [])
-                if p and isinstance(p, dict) and p.get('platform')
-            ]
-            rating = game_data.get('rating', 0)
-            metacritic = game_data.get('metacritic', 0)
-            released = game_data.get('released', '')
-
-            # Filter out empty strings
-            genres = [g for g in genres if g]
-            tags = [t for t in tags if t]
-            platforms = [p for p in platforms if p]
-
-            # Start with the game name and basic info
-            description_parts = []
-            if genres:
-                description_parts.append(f"{name} is a {' and '.join(genres[:2])} game")
-            else:
-                description_parts.append(f"{name} is a game")
-            
-            # Add release info
-            if released:
-                description_parts.append(f"released on {released}")
-            
-            # Add platforms
-            if platforms:
-                platform_text = f"available on {', '.join(platforms[:3])}"
-                if len(platforms) > 3:
-                    platform_text += f" and {len(platforms) - 3} other platforms"
-                description_parts.append(platform_text)
-            
-            # First sentence
-            description = ' '.join(description_parts) + '.'
-            
-            # Add rating info
-            rating_parts = []
-            if rating > 0:
-                rating_parts.append(f"The game has received a user rating of {rating:.1f}/5")
-            if metacritic:
-                rating_parts.append(f"and a Metacritic score of {metacritic}")
-            if rating_parts:
-                description += ' ' + ' '.join(rating_parts) + '.'
-            
-            # Add gameplay elements from tags
-            if tags:
-                gameplay_tags = tags[:5]  # Use up to 5 most relevant tags
-                description += f" The gameplay features {', '.join(gameplay_tags[:-1])}"
-                if len(gameplay_tags) > 1:
-                    description += f" and {gameplay_tags[-1]}"
-                description += "."
-            
-            return description
-            
-        except Exception as e:
-            print(f"Error generating description: {str(e)}")
-            return f"{game_data.get('name', 'Unknown Game')} is a video game."  # Fallback description
-
     def process_game(self, game_data):
         """Process a game entry with safe handling of missing or None values"""
         try:
@@ -247,8 +181,6 @@ class GameDataProcessor:
                 print("Skipping empty game data")
                 return None
 
-            # Generate description first
-            description = self.generate_description(game_data)
 
             # Helper function to safely get nested values
             def safe_get(obj, *keys):
@@ -284,7 +216,7 @@ class GameDataProcessor:
                 'game_id': game_data.get('id'),
                 'slug': game_data.get('slug', ''),
                 'name': game_data.get('name', 'Unknown Game'),
-                'description': description,
+                'description': game_data.get('description'),
                 'released': datetime.strptime(game_data['released'], '%Y-%m-%d') if game_data.get('released') else None,
                 'tba': game_data.get('tba', False),
                 'background_image': game_data.get('background_image'),
@@ -514,7 +446,7 @@ class GameDataProcessor:
 
 def main():
     processor = GameDataProcessor()
-    processor.process_json_file('./data/games_1000.json')
+    processor.process_json_file('rawg_games.json')
     print("Data processing completed!")
 
 

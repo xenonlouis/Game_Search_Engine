@@ -9,7 +9,10 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import nltk
-from pydantic import BaseModel
+from pydantic import BaseModel,validator
+from DataProcessing import GameDataProcessor  # Importer la classe GameProcessor
+from nltk.stem import WordNetLemmatizer
+
 
 # Download NLTK data
 nltk.download('punkt')
@@ -69,11 +72,53 @@ class GameResponse(BaseModel):
     matched_terms: List[str]
 
 
+class GameCreate(BaseModel):
+    name: str
+    description: str
+    releaseDate: str
+    genre: str
+    platform: str
+    rating: float
+    metacritic: Optional[int]
+    backgroundImage: Optional[str]
+
+
+def process_game(game_data: dict) -> dict:
+    """Process game data before inserting into database"""
+    return {
+        'game_id': hash(game_data['name'] + game_data['releaseDate']),  # Generate unique ID
+        'name': game_data['name'],
+        'description': game_data['description'],
+        'released': datetime.strptime(game_data['releaseDate'], '%Y-%m-%d'),
+        'background_image': game_data.get('backgroundImage'),
+        'rating': float(game_data['rating']),
+        'metacritic': game_data.get('metacritic'),
+        'platforms': [{
+            'platform': {
+                'name': game_data['platform'],
+                'slug': game_data['platform'].lower().replace(' ', '-'),
+            }
+        }],
+        'genres': [game_data['genre']],
+        'tags': [],
+        'added': 0,
+        'added_by_status': {},
+        'playtime': 0,
+        'suggestions_count': 0,
+        'updated': datetime.now(),
+        'reviews_count': 0,
+        'saturated_color': '0f0f0f',
+        'dominant_color': '0f0f0f'
+    }
+
+
 class SearchEngine:
     def __init__(self):
         self.stemmer = PorterStemmer()
         self.stop_words = set(stopwords.words('english'))
 
+
+    # Normalizing and stemming text 
     def normalize_text(self, text: str) -> List[str]:
         text = text.lower()
         tokens = word_tokenize(text)
@@ -85,13 +130,27 @@ class SearchEngine:
         if not query:
             return []
 
+        # Initialisation des outils de normalisation
+        stop_words = set(stopwords.words('english'))
+        lemmatizer = WordNetLemmatizer()
+
+        # Normalisation de la requête
+        tokens = query.lower().split()  # Conversion en minuscules et tokenisation
+        normalized_query = [
+            lemmatizer.lemmatize(token) for token in tokens if token not in stop_words
+        ]
+
+        if not normalized_query:
+            return []
+
+
         # Pipeline stages for MongoDB aggregation
         pipeline = []
 
         # Match stage to find documents containing any query term
         pipeline.append({
             '$match': {
-                'term': {'$in': query.lower().split()}
+                'term': {'$in': normalized_query}
             }
         })
 
@@ -257,3 +316,49 @@ async def get_game(game_id: int):
         raise HTTPException(status_code=404, detail="Game not found")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+
+class Game(BaseModel):
+    name: str
+    description: str
+    released: str
+    genre: str
+    platform: str
+    backgroundImage: str
+    metacritic: Optional[int]  # Permet un entier ou None
+    rating: Optional[float]   # Permet un float ou None
+
+    # Validateur pour convertir `metacritic` en int ou None
+    @validator("metacritic", pre=True, always=True)
+    def convert_metacritic(cls, value):
+        if isinstance(value, str) and value.isdigit():
+            return int(value)
+        return None if value in ("", None) else value
+
+    # Validateur pour convertir `rating` en float ou None
+    @validator("rating", pre=True, always=True)
+    def convert_rating(cls, value):
+        try:
+            return float(value) if value else None
+        except ValueError:
+            return None
+
+# Instancier le GameProcessor (l'exemple assume que vous avez déjà une base de données configurée)
+game_processor = GameDataProcessor()
+
+# Endpoint pour ajouter un jeu unique
+@app.post("/games")
+async def add_game(game: Game):
+    try:
+        # Convertir l'objet Pydantic en dictionnaire
+        game_data = game.dict()
+
+        # Appeler la méthode de traitement du jeu
+        game_processor.process_single_game(game_data)
+
+        return {"message": f"Game added successfully!"}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error adding game: {str(e)}")
+
