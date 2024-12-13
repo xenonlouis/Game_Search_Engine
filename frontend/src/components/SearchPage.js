@@ -247,7 +247,7 @@ const SearchPage = () => {
     console.log('Added game : ',newGame);
     try {
       const response = await axios.post('http://localhost:8000/games', newGame);
-      if (response.status === 201) {
+      if (response.status === 200) {
         console.log('successfully added ', response)
         setOpenAddGame(false);
         // Optionally refresh the search results

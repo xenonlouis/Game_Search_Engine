@@ -7,10 +7,16 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import math
-
+from nltk.stem import WordNetLemmatizer
+import random
 # Download required NLTK data
 nltk.download('punkt')
 nltk.download('stopwords')
+nltk.download('wordnet')
+
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
 
 
 class GameDataProcessor:
@@ -25,7 +31,7 @@ class GameDataProcessor:
         # Text processing tools
         self.stemmer = PorterStemmer()
         self.stop_words = set(stopwords.words('english'))
-
+        self.lemmatizer = WordNetLemmatizer()
         # Field weights for different types of content
         self.field_weights = {
             'name': 2.0,      # Game names are most important
@@ -38,7 +44,7 @@ class GameDataProcessor:
         # Batch size for processing
         self.batch_size = 100
 
-    def normalize_text(self, text):
+    def normalize_text(self, text: str):
         if not text:
             return []
         # Convert to lowercase
@@ -72,6 +78,51 @@ class GameDataProcessor:
         
         return list(set(normalized_tokens))  # Remove duplicates
 
+    def process_description(self, description):
+        """
+        Traite et normalise le texte de la description avec :
+        - Suppression des stopwords.
+        - Lemmatisation et stemmatisation.
+        - Ajout de n-grammes pour enrichir les termes importants.
+        
+        Args:
+            description (str): Texte de la description.
+        
+        Returns:
+            list: Liste de termes normalisés et enrichis.
+        """
+        if not description:
+            return []
+
+        # Convertir en minuscules et nettoyer les caractères spéciaux
+        description = description.lower()
+        description = re.sub(r'[^a-zA-Z0-9\s-]', '', description)
+        description = description.replace('-', ' ')
+
+        # Tokenisation
+        tokens = word_tokenize(description)
+
+        # Suppression des stopwords
+        filtered_tokens = [token for token in tokens if token not in self.stop_words]
+
+        # Lemmatisation
+        lemmatized_tokens = [self.lemmatizer.lemmatize(token) for token in filtered_tokens]
+
+        # Stemmatisation
+        stemmed_tokens = [self.stemmer.stem(token) for token in lemmatized_tokens]
+
+        # Ajout de n-grammes (bigrammes)
+        # ngrams = [
+        #     ' '.join(stemmed_tokens[i:i+2]) 
+        #     for i in range(len(stemmed_tokens) - 1)
+        # ]
+
+        # Fusionner tokens uniques et n-grammes
+        unique_terms = list(set(stemmed_tokens))
+        # unique_terms = list(set(stemmed_tokens + ngrams))
+
+        return unique_terms
+
     def calculate_tf_idf(self, tf, df, total_docs):
         """
         Calculate TF-IDF score
@@ -91,7 +142,65 @@ class GameDataProcessor:
         return tf_score * idf_score
 
     def create_inverted_index(self, game_id, text, field):
+        # print(f"create_inverted_index called for field: {field} with game_id: {game_id}")
         tokens = self.normalize_text(text)
+        doc_length = len(tokens)
+
+        # Count term frequency
+        term_freq = {}
+        for position, token in enumerate(tokens):
+            if token not in term_freq:
+                term_freq[token] = {
+                    'count': 1,
+                    'positions': [position]
+                }
+            else:
+                term_freq[token]['count'] += 1
+                term_freq[token]['positions'].append(position)
+
+        # Calculate field weight
+        field_weight = self.field_weights.get(field, 1.0)
+
+        # Get total number of documents
+        total_docs = self.games_collection.count_documents({})
+        # print(total_docs)
+        # Update inverted index with tf-idf scores
+        for token, data in term_freq.items():
+            # Get current document frequency
+            term_doc = self.inverted_index.find_one({'term': token}) or {'game_refs': []}
+            # print(term_doc)
+            df = len(term_doc['game_refs'])
+            
+            # Calculate TF-IDF score
+            tf_idf = self.calculate_tf_idf(data['count'], df, total_docs)
+            
+            # Apply field weight to tf-idf
+            weighted_score = tf_idf * field_weight
+
+            self.inverted_index.update_one(
+                {'term': token},
+                {
+                    '$push': {
+                        'game_refs': {
+                            'game_id': game_id,
+                            'field': field,
+                            'tf': data['count'],
+                            'tf_idf': weighted_score,
+                            'positions': data['positions'],
+                            'doc_length': doc_length
+                        }
+                    },
+                    '$inc': {
+                        'total_occurrences': data['count'],
+                        'document_frequency': 1
+                    }
+                },
+                upsert=True
+            )
+
+    def create_inverted_index_for_description(self, game_id, text, field):
+        tokens = self.process_description(text)
+        # print(tokens)
         doc_length = len(tokens)
 
         # Count term frequency
@@ -145,6 +254,9 @@ class GameDataProcessor:
                 upsert=True
             )
 
+
+
+
     def update_tf_idf_scores(self):
         """
         Update TF-IDF scores for all terms in the inverted index
@@ -174,6 +286,72 @@ class GameDataProcessor:
                     }
                 )
 
+    def generate_description(self, game_data):
+        """
+        Generate a description for a game using available metadata
+        """
+        try:
+            name = game_data.get('name', '')
+            genres = [g.get('name', '') for g in game_data.get('genres', []) if g and isinstance(g, dict)]
+            tags = [t.get('name', '') for t in game_data.get('tags', []) if t and isinstance(t, dict)]
+            platforms = [
+                p.get('platform', {}).get('name', '')
+                for p in game_data.get('platforms', [])
+                if p and isinstance(p, dict) and p.get('platform')
+            ]
+            rating = game_data.get('rating', 0)
+            metacritic = game_data.get('metacritic', 0)
+            released = game_data.get('released', '')
+
+            # Filter out empty strings
+            genres = [g for g in genres if g]
+            tags = [t for t in tags if t]
+            platforms = [p for p in platforms if p]
+
+            # Start with the game name and basic info
+            description_parts = []
+            if genres:
+                description_parts.append(f"{name} is a {' and '.join(genres[:2])} game")
+            else:
+                description_parts.append(f"{name} is a game")
+            
+            # Add release info
+            if released:
+                description_parts.append(f"released on {released}")
+            
+            # Add platforms
+            if platforms:
+                platform_text = f"available on {', '.join(platforms[:3])}"
+                if len(platforms) > 3:
+                    platform_text += f" and {len(platforms) - 3} other platforms"
+                description_parts.append(platform_text)
+            
+            # First sentence
+            description = ' '.join(description_parts) + '.'
+            
+            # Add rating info
+            rating_parts = []
+            if rating > 0:
+                rating_parts.append(f"The game has received a user rating of {rating:.1f}/5")
+            if metacritic:
+                rating_parts.append(f"and a Metacritic score of {metacritic}")
+            if rating_parts:
+                description += ' ' + ' '.join(rating_parts) + '.'
+            
+            # Add gameplay elements from tags
+            if tags:
+                gameplay_tags = tags[:5]  # Use up to 5 most relevant tags
+                description += f" The gameplay features {', '.join(gameplay_tags[:-1])}"
+                if len(gameplay_tags) > 1:
+                    description += f" and {gameplay_tags[-1]}"
+                description += "."
+            
+            return description
+            
+        except Exception as e:
+            print(f"Error generating description: {str(e)}")
+            return f"{game_data.get('name', 'Unknown Game')} is a video game."  # Fallback description
+
     def process_game(self, game_data):
         """Process a game entry with safe handling of missing or None values"""
         try:
@@ -181,6 +359,8 @@ class GameDataProcessor:
                 print("Skipping empty game data")
                 return None
 
+            # Generate description first modifié pour l'ajout 
+            # description = self.generate_description(game_data)
 
             # Helper function to safely get nested values
             def safe_get(obj, *keys):
@@ -201,7 +381,7 @@ class GameDataProcessor:
                     continue
 
                 platforms.append({
-                    'id': platform.get('id'),
+                    'id': platform.get('id',random.randint(10000, 99999)),
                     'name': platform.get('name', 'Unknown Platform'),
                     'slug': platform.get('slug', ''),
                     'released_at': platform_data.get('released_at'),
@@ -213,11 +393,11 @@ class GameDataProcessor:
 
             # Create comprehensive game document
             game_doc = {
-                'game_id': game_data.get('id'),
+                'game_id': game_data.get('id',random.randint(10000, 99999)),
                 'slug': game_data.get('slug', ''),
                 'name': game_data.get('name', 'Unknown Game'),
                 'description': game_data.get('description'),
-                'released': datetime.strptime(game_data['released'], '%Y-%m-%d') if game_data.get('released') else None,
+                'released': datetime.strptime(game_data['released'], '%Y-%m-%d') if game_data.get('releasedDate') else None,
                 'tba': game_data.get('tba', False),
                 'background_image': game_data.get('background_image'),
                 'rating': game_data.get('rating'),
@@ -227,13 +407,13 @@ class GameDataProcessor:
                 'reviews_text_count': game_data.get('reviews_text_count', 0),
                 'added': game_data.get('added', 0),
                 'added_by_status': game_data.get('added_by_status', {}),
-                'metacritic': game_data.get('metacritic'),
+                'metacritic': game_data.get('metacritic',0),
                 'playtime': game_data.get('playtime', 0),
                 'suggestions_count': game_data.get('suggestions_count', 0),
-                'updated': game_data.get('updated'),
+                'updated': game_data.get('updated',''),
                 'reviews_count': game_data.get('reviews_count', 0),
-                'saturated_color': game_data.get('saturated_color'),
-                'dominant_color': game_data.get('dominant_color'),
+                'saturated_color': game_data.get('saturated_color',''),
+                'dominant_color': game_data.get('dominant_color',''),
                 
                 # Simplified platform structure
                 'platforms': platforms,
@@ -337,22 +517,22 @@ class GameDataProcessor:
                 game_docs.append(game_doc)
                 
                 # Create inverted index for searchable fields
-                self.create_inverted_index(game_data['id'], game_data['name'], 'name')
+                self.create_inverted_index(game_doc['game_id'], game_doc['name'], 'name')
                 
-                # Create inverted index for description
-                self.create_inverted_index(game_data['id'], game_doc['description'], 'description')
+                # Create inverted index for description avec des étapes ajouter de l'indexation
+                self.create_inverted_index_for_description(game_doc['game_id'], game_doc['description'], 'description')
 
                 # Create inverted index for tags
                 for tag in game_data.get('tags', []):
-                    self.create_inverted_index(game_data['id'], tag['name'], 'tag')
+                    self.create_inverted_index(game_doc['game_id'], tag['name'], 'tag')
 
                 # Create inverted index for genres
                 for genre in game_data.get('genres', []):
-                    self.create_inverted_index(game_data['id'], genre['name'], 'genre')
+                    self.create_inverted_index(game_doc['game_id'], genre['name'], 'genre')
 
                 # Create inverted index for platforms
                 for platform in game_data.get('platforms', []):
-                    self.create_inverted_index(game_data['id'], platform['platform']['name'], 'platform')
+                    self.create_inverted_index(game_doc['game_id'], platform['platform']['name'], 'platform')
 
         if game_docs:
             self.games_collection.insert_many(game_docs)
@@ -443,10 +623,46 @@ class GameDataProcessor:
             self.inverted_index.create_index([('game_refs.game_id', 1)])
             self.inverted_index.create_index([('game_refs.tf_idf', -1)])
 
+    def process_single_game(self, game_data):
+        """
+        Process a single game's data and insert it into the database.
+        This is where the game is indexed and the TF-IDF scores are computed.
+        """
+        self.games_collection = self.db['games']
+        self.inverted_index = self.db['inverted_index']
+        self.collection_stats = self.db['collection_stats']
+        # Example of processing the game data similar to the batch processing from the file
+        
+        game_doc = self.process_game(game_data)
+        # print(game_doc)
+                        # Create inverted index for searchable fields
+        # print(game_doc['game_id'],game_doc['name'])
+        self.create_inverted_index(game_doc['game_id'], game_doc['name'], 'name')
+        # Create inverted index for description avec des étapes ajouter de l'indexation
+        self.create_inverted_index_for_description(game_doc['game_id'], game_doc['description'], 'description')
+
+        # Create inverted index for tags
+        for tag in game_data.get('tags', []):
+            self.create_inverted_index(game_doc['game_id'], tag['name'], 'tag')
+
+        # Create inverted index for genres
+        for genre in game_data.get('genres', []):
+            self.create_inverted_index(game_doc['game_id'], genre['name'], 'genre')
+
+        # Create inverted index for platforms
+        for platform in game_data.get('platforms', []):
+            self.create_inverted_index(game_doc['game_id'], platform['platform']['name'], 'platform')
+        if game_doc:
+            self.games_collection.insert_one(game_doc)
+        self.update_tf_idf_scores()
+        return
+
+
+
 
 def main():
     processor = GameDataProcessor()
-    processor.process_json_file('rawg_games.json')
+    processor.process_json_file('./rawg_games2.json')
     print("Data processing completed!")
 
 

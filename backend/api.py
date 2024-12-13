@@ -136,10 +136,7 @@ class SearchEngine:
 
         # Normalisation de la requête
         tokens = query.lower().split()  # Conversion en minuscules et tokenisation
-        normalized_query = [
-            lemmatizer.lemmatize(token) for token in tokens if token not in stop_words
-        ]
-
+        normalized_query = self.normalize_text(query)
         if not normalized_query:
             return []
 
@@ -329,21 +326,19 @@ class Game(BaseModel):
     metacritic: Optional[int]  # Permet un entier ou None
     rating: Optional[float]   # Permet un float ou None
 
-    # Validateur pour convertir `metacritic` en int ou None
     @validator("metacritic", pre=True, always=True)
     def convert_metacritic(cls, value):
-        if isinstance(value, str) and value.isdigit():
-            return int(value)
-        return None if value in ("", None) else value
+        try:
+            return int(float(value)) if value else None
+        except ValueError:
+            return None
 
-    # Validateur pour convertir `rating` en float ou None
     @validator("rating", pre=True, always=True)
     def convert_rating(cls, value):
         try:
             return float(value) if value else None
         except ValueError:
             return None
-
 # Instancier le GameProcessor (l'exemple assume que vous avez déjà une base de données configurée)
 game_processor = GameDataProcessor()
 
@@ -351,9 +346,9 @@ game_processor = GameDataProcessor()
 @app.post("/games")
 async def add_game(game: Game):
     try:
+        # print(game)
         # Convertir l'objet Pydantic en dictionnaire
         game_data = game.dict()
-
         # Appeler la méthode de traitement du jeu
         game_processor.process_single_game(game_data)
 
